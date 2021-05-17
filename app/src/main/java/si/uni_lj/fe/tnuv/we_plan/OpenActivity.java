@@ -15,7 +15,7 @@ public class OpenActivity extends AppCompatActivity {
     }
 
     public void prijaviUporabnika(View view){
-        Intent intent = new Intent(OpenActivity.this, ToDoListActivity.class);
+        Intent intent = new Intent(OpenActivity.this, GroupsActivity.class);
         startActivity(intent);
     }
 }
