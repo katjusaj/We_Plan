@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">We_Plan</string>
+    <string name="nakupovalni_seznam">Nakupovalni seznam</string>
+    <string name="seznam_opravil">seznam opravil</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="tri_pike">...</string>
+</resources>
