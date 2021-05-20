@@ -4,4 +4,9 @@
     <string name="seznam_opravil">seznam opravil</string>
     <string name="dodaj">Dodaj</string>
     <string name="tri_pike">...</string>
+    <string name="kljucElementa">kljucElementa</string>
+    <string name="elementDefault">/</string>
+    <string name="besediloElementov">Dozdajsnji elementi:</string>
+    <string name="datotekaZVsebino">datotekaZVsebino.txt</string>
+    <string name="datotekaSkupine">datotekaSkupine.txt</string>
 </resources>

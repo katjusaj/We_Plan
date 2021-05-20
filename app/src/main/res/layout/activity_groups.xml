@@ -30,7 +30,8 @@
         android:text="@string/dodaj"
         app:backgroundTint="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="shraniSkupino"  />
 
     <View
         android:id="@+id/divider"

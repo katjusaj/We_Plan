@@ -44,7 +44,9 @@
         android:text="Dodaj"
         app:backgroundTint="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="shrani" />
+
 
     <View
         android:id="@+id/dividerS"
