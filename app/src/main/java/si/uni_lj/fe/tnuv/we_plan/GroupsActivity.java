@@ -27,7 +27,6 @@ import java.util.List;
 
 public class GroupsActivity extends AppCompatActivity {
 
-    private ArrayList<String> groups;
     private ArrayAdapter<String> groupsAdapter;
     private ListView listView;
     private Button button;
@@ -50,7 +49,8 @@ public class GroupsActivity extends AppCompatActivity {
         //System.out.println(skupineVsebina);
         //temp = skupineVsebina.split(" ");
         //skupine = Arrays.asList(temp);
-        skupine = new ArrayList<String>(Arrays.asList(skupineVsebina.split(" ")));
+        skupine = new ArrayList<String>(Arrays.asList(skupineVsebina.split("\\s*,\\s*")));
+        //List<String> skupine = Arrays.asList(skupineVsebina.split("\\s*,\\s*"));
 
         listView = findViewById(R.id.listView);
         System.out.println(skupine);
@@ -112,10 +112,11 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
                 Context context = getApplicationContext();
-                Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
 
-                groups.remove(i);
+                skupine.remove(i);
+
                 groupsAdapter.notifyDataSetChanged();
+                Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
                 return true;
             }
         });
@@ -167,7 +168,10 @@ public class GroupsActivity extends AppCompatActivity {
 
         try {
             //ustvarimo izhodni tok
-            FileOutputStream os = openFileOutput(filename, Context.MODE_PRIVATE);
+            FileOutputStream os = openFileOutput(filename, Context.MODE_PRIVATE | Context.MODE_APPEND);
+            //zapisi vejico in presledek v datoteko
+            String vejica = ", ";
+            os.write(vejica.getBytes());
             //zapisemo posredovano vsebino v datoteko
             os.write(vsebina.getBytes());
             //sprostimo izhodni tok
