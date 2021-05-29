@@ -15,7 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import java.io.FileWriter;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class GroupsActivity extends AppCompatActivity {
 
@@ -32,9 +35,11 @@ public class GroupsActivity extends AppCompatActivity {
     private Button button;
     private String filename;
 
-   private ArrayList<String> skupine;
-   private String skupineVsebina;
-   private String[] temp;
+    private ArrayList<String> skupine;
+    private String skupineVsebina;
+    private String[] temp;
+
+    public static final String IME = "si.uni_lj.fe.tnuv.IME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,34 +82,49 @@ public class GroupsActivity extends AppCompatActivity {
         */
     }
 
-   // private ArrayList<String> preberiIzDatoteke(String filename) {
+    // private ArrayList<String> preberiIzDatoteke(String filename) {
 
-        private String preberiIzDatoteke(String filename){
+    private String preberiIzDatoteke(String filename){
 
-            // ustvarimo vhodni podatkovni tok
-            FileInputStream inputStream;
+//            try {
+//                Scanner myReader = new Scanner(filename);
+//                while (myReader.hasNextLine()) {
+//                    skupineVsebina = myReader.nextLine();
+//
+//                    System.out.println(skupineVsebina);
+//
+//                }
+//                myReader.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            return skupineVsebina;
 
-            //ugotovimo, koliko je velika datoteka
-            File file = new File(getFilesDir(), filename);
-            int length = (int) file.length();
+        // ustvarimo vhodni podatkovni tok
+        FileInputStream inputStream;
 
-            //pripravimo spremenljivko, v katero se bodo prebrali podatki
-            byte[] bytes = new byte[length];
+        //ugotovimo, koliko je velika datoteka
+        File file = new File(getFilesDir(), filename);
+        int length = (int) file.length();
 
-            //preberemo podatke
-            try {
-                inputStream = openFileInput(filename);
-                inputStream.read(bytes);
-                inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        //pripravimo spremenljivko, v katero se bodo prebrali podatki
+        byte[] bytes = new byte[length];
 
-            //podatke pretvorimo iz polja bajtov v znakovni niz
-            String vsebina = new String(bytes);
-            System.out.println(vsebina);
-            return vsebina;
+        //preberemo podatke
+        try {
+            inputStream = openFileInput(filename);
+            inputStream.read(bytes);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        //podatke pretvorimo iz polja bajtov v znakovni niz
+        String vsebina = new String(bytes);
+        System.out.println(vsebina);
+        return vsebina;
+    }
 
 
     private void setUpListViewListener() {
@@ -121,17 +141,26 @@ public class GroupsActivity extends AppCompatActivity {
             }
         });
 
+        // klik na ime skupine - vrže na skupino
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Context context = getApplicationContext();
-                Toast.makeText(context, "Dodana nova skupina", Toast.LENGTH_LONG).show();
+                String imeSkupine = "file"+position+"-1.txt";
+                System.out.println(imeSkupine);
 
-                for (int i = 0; i < listView.getChildCount(); i++) {
-                    if(position == i ) {
-                        listView.getChildAt(i).setBackgroundColor(Color.rgb(255, 226,162));
-                    }
-                }
+                Intent intent = new Intent(GroupsActivity.this, ToDoListActivity.class);
+                intent.putExtra(IME, imeSkupine);
+                startActivity(intent);
+
+                //spremeni barvo
+//                Context context = getApplicationContext();
+//                Toast.makeText(context, "Dodana nova skupina", Toast.LENGTH_LONG).show();
+
+//                for (int i = 0; i < listView.getChildCount(); i++) {
+//                    if(position == i ) {
+//                        listView.getChildAt(i).setBackgroundColor(Color.rgb(255, 226,162));
+//                    }
+//                }
 
             }
         });
@@ -165,6 +194,16 @@ public class GroupsActivity extends AppCompatActivity {
 
     public void shraniSkupino(View view, String vsebina) {
         //shranim v datoteko
+//
+//        try {
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+//            writer.append(",");
+//            writer.append(vsebina);
+//            writer.close();
+//        } catch (Exception e) {
+//           e.printStackTrace();
+//       }
+
 
         try {
             //ustvarimo izhodni tok

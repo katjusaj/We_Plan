@@ -14,7 +14,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShoppingActivity extends AppCompatActivity {
 
@@ -22,11 +26,26 @@ public class ShoppingActivity extends AppCompatActivity {
     private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
+    private String shoppingList;
+
+    private String imeSkupine;
+    private String toDoList;
+
+    public static final String IME3 = "si.uni_lj.fe.tnuv.IME3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
+
+        Intent intent = getIntent();
+        imeSkupine = intent.getStringExtra(ToDoListActivity.IME2);
+        toDoList = imeSkupine.substring(0, imeSkupine.length() - 5);
+        toDoList = toDoList + "1.txt";
+
+        shoppingList = preberiIzDatoteke(imeSkupine);
+
+        items = new ArrayList<String>(Arrays.asList(shoppingList.split("\\s*,\\s*")));
 
         listView = findViewById(R.id.listViewS);
         button = findViewById(R.id.buttonS1);
@@ -38,10 +57,37 @@ public class ShoppingActivity extends AppCompatActivity {
             }
         });
 
-        items = new ArrayList<>();
+//        items = new ArrayList<>();
         itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemsAdapter);
         setUpListViewListener();
+    }
+
+    private String preberiIzDatoteke(String filename){
+
+        // ustvarimo vhodni podatkovni tok
+        FileInputStream inputStream;
+
+        //ugotovimo, koliko je velika datoteka
+        File file = new File(getFilesDir(), filename);
+        int length = (int) file.length();
+
+        //pripravimo spremenljivko, v katero se bodo prebrali podatki
+        byte[] bytes = new byte[length];
+
+        //preberemo podatke
+        try {
+            inputStream = openFileInput(filename);
+            inputStream.read(bytes);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //podatke pretvorimo iz polja bajtov v znakovni niz
+        String vsebina = new String(bytes);
+        System.out.println(vsebina);
+        return vsebina;
     }
 
     private void setUpListViewListener() {
@@ -83,14 +129,36 @@ public class ShoppingActivity extends AppCompatActivity {
             itemsAdapter.add(itemText);
             input.setText("");
             inputOseba.setText("");
+            shraniItem(izpis);
         }
         else {
             Toast.makeText(getApplicationContext(), "Vpišite izdelek", Toast.LENGTH_LONG).show();
         }
     }
 
+    public void shraniItem(String vsebina) {
+        //shranim v datoteko
+
+        try {
+            //ustvarimo izhodni tok
+            FileOutputStream os = openFileOutput(imeSkupine, Context.MODE_PRIVATE | Context.MODE_APPEND);
+            //zapisi vejico in presledek v datoteko
+            String vejica = ", ";
+            os.write(vejica.getBytes());
+            //zapisemo posredovano vsebino v datoteko
+            os.write(vsebina.getBytes());
+            //sprostimo izhodni tok
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(vsebina);
+    }
+
     public void naToDo(View view){
         Intent intent2 = new Intent(ShoppingActivity.this, ToDoListActivity.class);
+//        intent2.putExtra(IME3, toDoList);
         startActivity(intent2);
     }
 

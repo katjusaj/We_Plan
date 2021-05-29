@@ -14,21 +14,48 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ToDoListActivity extends AppCompatActivity {
 
+
+    public static final String IME2 = "ime";
+    private ArrayAdapter<String> groupsAdapter;
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
+    private String toDoList;
+    private ArrayList<String> opravila;
+
+    private String imeSkupine;
+    private String nakupovalniSeznam;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
 
+        Intent intent = getIntent();
+        imeSkupine = intent.getStringExtra(GroupsActivity.IME);
+        nakupovalniSeznam = imeSkupine.substring(0, imeSkupine.length() - 5);
+        nakupovalniSeznam = nakupovalniSeznam + "2.txt";
+        System.out.println(nakupovalniSeznam);
+
+        toDoList = preberiIzDatoteke(imeSkupine);
+
+        opravila = new ArrayList<String>(Arrays.asList(toDoList.split("\\s*,\\s*")));
+
+
         listView = findViewById(R.id.listView);
+        System.out.println(opravila);
         button = findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +65,53 @@ public class ToDoListActivity extends AppCompatActivity {
             }
         });
 
-        items = new ArrayList<>();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        //groups = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, opravila);
         listView.setAdapter(itemsAdapter);
         setUpListViewListener();
+
+
+//        listView = findViewById(R.id.listView);
+//        button = findViewById(R.id.button);
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addItem(view);
+//            }
+//        });
+//
+//        items = new ArrayList<>();
+//        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+//        listView.setAdapter(itemsAdapter);
+//        setUpListViewListener();
+    }
+
+    private String preberiIzDatoteke(String filename){
+
+        // ustvarimo vhodni podatkovni tok
+        FileInputStream inputStream;
+
+        //ugotovimo, koliko je velika datoteka
+        File file = new File(getFilesDir(), filename);
+        int length = (int) file.length();
+
+        //pripravimo spremenljivko, v katero se bodo prebrali podatki
+        byte[] bytes = new byte[length];
+
+        //preberemo podatke
+        try {
+            inputStream = openFileInput(filename);
+            inputStream.read(bytes);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //podatke pretvorimo iz polja bajtov v znakovni niz
+        String vsebina = new String(bytes);
+        System.out.println(vsebina);
+        return vsebina;
     }
 
     private void setUpListViewListener() {
@@ -51,8 +121,31 @@ public class ToDoListActivity extends AppCompatActivity {
                 Context context = getApplicationContext();
                 Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
 
-                items.remove(i);
-                itemsAdapter.notifyDataSetChanged();
+//                items.remove(i);
+//                itemsAdapter.notifyDataSetChanged();
+
+//                izbris podatka
+//                String b = items.get(i);
+//
+//                String kopija = toDoList;
+//                kopija.replace(b, "");
+//                byte[] izbris = kopija.getBytes();
+//                System.out.println(kopija);
+//
+//                try {
+//                    FileOutputStream os = openFileOutput(imeSkupine, Context.MODE_PRIVATE);
+//                    os.write(izbris);
+//                    os.close();
+//                    System.out.println("Sesuje se");
+////                    finish();
+////                    startActivity(getIntent());
+//
+//                } catch (IOException e) {
+//                    System.out.println("Ne dela");
+//                    e.printStackTrace();
+//                }
+
+
                 return true;
             }
         });
@@ -84,14 +177,41 @@ public class ToDoListActivity extends AppCompatActivity {
             itemsAdapter.add(itemText);
             input.setText("");
             inputOseba.setText("");
+
+            shraniItem(izpis);
+//            finish();
+//            startActivity(getIntent());
         }
         else {
             Toast.makeText(getApplicationContext(), "Vpišite zadolžitev", Toast.LENGTH_LONG).show();
         }
+        System.out.println(opravila);
+    }
+
+    public void shraniItem(String vsebina) {
+        //shranim v datoteko
+
+        try {
+            //ustvarimo izhodni tok
+            FileOutputStream os = openFileOutput(imeSkupine, Context.MODE_PRIVATE | Context.MODE_APPEND);
+            //zapisi vejico in presledek v datoteko
+            String vejica = ", ";
+            os.write(vejica.getBytes());
+            //zapisemo posredovano vsebino v datoteko
+            os.write(vsebina.getBytes());
+            //sprostimo izhodni tok
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(vsebina);
     }
 
     public void naNakupovalniSeznam(View view){
+
         Intent intent = new Intent(ToDoListActivity.this, ShoppingActivity.class);
+        intent.putExtra(IME2, nakupovalniSeznam);
         startActivity(intent);
     }
 }
