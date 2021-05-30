@@ -158,7 +158,8 @@ public class ShoppingActivity extends AppCompatActivity {
 
     public void naToDo(View view){
         Intent intent2 = new Intent(ShoppingActivity.this, ToDoListActivity.class);
-//        intent2.putExtra(IME3, toDoList);
+        intent2.putExtra("ime", toDoList);
+        intent2.putExtra("activity", "ShoppingActivity");
         startActivity(intent2);
     }
 

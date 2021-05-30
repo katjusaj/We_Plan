@@ -1,10 +1,12 @@
 package si.uni_lj.fe.tnuv.we_plan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 public class ToDoListActivity extends AppCompatActivity {
 
@@ -44,7 +47,12 @@ public class ToDoListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_to_do_list);
 
         Intent intent = getIntent();
-        imeSkupine = intent.getStringExtra(GroupsActivity.IME);
+//        String ime = intent.toString();
+//        System.out.println(ime);
+        String act = intent.getStringExtra("activity");
+        System.out.println(act);
+
+        imeSkupine = intent.getStringExtra("ime");
         nakupovalniSeznam = imeSkupine.substring(0, imeSkupine.length() - 5);
         nakupovalniSeznam = nakupovalniSeznam + "2.txt";
         System.out.println(nakupovalniSeznam);
@@ -211,7 +219,8 @@ public class ToDoListActivity extends AppCompatActivity {
     public void naNakupovalniSeznam(View view){
 
         Intent intent = new Intent(ToDoListActivity.this, ShoppingActivity.class);
-        intent.putExtra(IME2, nakupovalniSeznam);
+        intent.putExtra("ime", nakupovalniSeznam);
+        intent.putExtra("activity", "ToDoListActivity");
         startActivity(intent);
     }
 }

@@ -40,6 +40,7 @@ public class GroupsActivity extends AppCompatActivity {
     private String[] temp;
 
     public static final String IME = "si.uni_lj.fe.tnuv.IME";
+    public static final String ACT = "si.uni_lj.fe.tnuv.ACT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,8 @@ public class GroupsActivity extends AppCompatActivity {
                 System.out.println(imeSkupine);
 
                 Intent intent = new Intent(GroupsActivity.this, ToDoListActivity.class);
-                intent.putExtra(IME, imeSkupine);
+                intent.putExtra("ime", imeSkupine);
+                intent.putExtra("activity", "GroupsActivity");
                 startActivity(intent);
 
                 //spremeni barvo
