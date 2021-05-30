@@ -233,4 +233,11 @@ public class ToDoListActivity extends AppCompatActivity {
         intent.putExtra("activity", "ToDoListActivity");
         startActivity(intent);
     }
+
+    public void naSkupine(View view){
+
+        Intent intent = new Intent(ToDoListActivity.this, GroupsActivity.class);
+        intent.putExtra("activity", "ToDoListActivity");
+        startActivity(intent);
+    }
 }

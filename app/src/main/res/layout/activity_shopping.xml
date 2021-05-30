@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp"
         android:text="Nakupovalni seznam"
@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp"
         android:onClick="naToDo"
@@ -121,6 +121,15 @@
         app:layout_constraintEnd_toStartOf="@+id/buttonS2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/na_skupine"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="6dp"
+        android:onClick="naSkupine2"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

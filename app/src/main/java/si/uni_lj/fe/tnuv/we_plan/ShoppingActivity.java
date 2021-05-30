@@ -190,4 +190,9 @@ public class ShoppingActivity extends AppCompatActivity {
         startActivity(intent2);
     }
 
+    public void naSkupine2(View view) {
+        Intent intent = new Intent(ShoppingActivity.this, GroupsActivity.class);
+        intent.putExtra("activity", "ToDoListActivity");
+        startActivity(intent);
+    }
 }

@@ -10,4 +10,6 @@
     <string name="datotekaZVsebino">datotekaZVsebino.txt</string>
     <string name="datotekaSkupine">datotekaSkupine.txt</string>
     <string name="skupineSeznam">skupineSeznam.txt</string>
+    <string name="naSkupine"><![CDATA[< Na skupine]]></string>
+    <string name="na_skupine"><![CDATA[< Na skupine]]></string>
 </resources>
