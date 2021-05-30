@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.Set;
 
 public class ToDoListActivity extends AppCompatActivity {
@@ -127,31 +128,40 @@ public class ToDoListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
                 Context context = getApplicationContext();
-                Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Opravljeno", Toast.LENGTH_LONG).show();
 
 //                items.remove(i);
 //                itemsAdapter.notifyDataSetChanged();
+//              NOV DOKUMENT
+                String vs = preberiIzDatoteke(imeSkupine);
+                System.out.println("Pred izbrisom: "+ vs);
+                String izbris = ", "+ opravila.get(i);
+                System.out.println(izbris);
 
-//                izbris podatka
-//                String b = items.get(i);
-//
-//                String kopija = toDoList;
-//                kopija.replace(b, "");
-//                byte[] izbris = kopija.getBytes();
-//                System.out.println(kopija);
-//
-//                try {
-//                    FileOutputStream os = openFileOutput(imeSkupine, Context.MODE_PRIVATE);
-//                    os.write(izbris);
-//                    os.close();
-//                    System.out.println("Sesuje se");
-////                    finish();
-////                    startActivity(getIntent());
-//
-//                } catch (IOException e) {
-//                    System.out.println("Ne dela");
-//                    e.printStackTrace();
-//                }
+                String novaVS = vs.replace(izbris, "");
+                System.out.println("Po izbrisu: "+ novaVS);
+
+//                 ZAPIS NOVEGA DOKUMENTA
+                try {
+                    //ustvarimo izhodni tok
+                    FileOutputStream os = openFileOutput(imeSkupine, MODE_PRIVATE);
+                    //zapisi vejico in presledek v datoteko
+//                    String vejica = ", ";
+//                    os.write(vejica.getBytes());
+                    //zapisemo posredovano vsebino v datoteko
+                    os.write(novaVS.getBytes());
+                    //sprostimo izhodni tok
+                    os.close();
+
+                    opravila.remove(i);
+                    itemsAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(novaVS);
+
 
 
                 return true;
@@ -162,7 +172,7 @@ public class ToDoListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getApplicationContext();
-                Toast.makeText(context, "Opravljeno", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Označeno", Toast.LENGTH_LONG).show();
 
                 for (int i = 0; i < listView.getChildCount(); i++) {
                     if(position == i ) {
