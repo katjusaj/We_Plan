@@ -12,4 +12,10 @@
     <string name="skupineSeznam">skupineSeznam.txt</string>
     <string name="naSkupine"><![CDATA[< Na skupine]]></string>
     <string name="na_skupine"><![CDATA[< Na skupine]]></string>
+    <string name="stroskovni">Stroškovnik</string>
+    <string name="oseba">Oseba</string>
+    <string name="eur">EUR</string>
+    <string name="shrani">Shrani</string>
+    <string name="nazaj">Nazaj</string>
+    <string name="stroskovnik">Stroškovnik</string>
 </resources>

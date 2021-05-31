@@ -30,6 +30,7 @@ public class ShoppingActivity extends AppCompatActivity {
 
     private String imeSkupine;
     private String toDoList;
+    private String costList;
 
     public static final String IME3 = "si.uni_lj.fe.tnuv.IME3";
 
@@ -41,6 +42,7 @@ public class ShoppingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         imeSkupine = intent.getStringExtra("ime");
         toDoList = imeSkupine.substring(0, imeSkupine.length() - 5);
+        costList = toDoList + "3.txt";
         toDoList = toDoList + "1.txt";
 
         shoppingList = preberiIzDatoteke(imeSkupine);
@@ -193,6 +195,12 @@ public class ShoppingActivity extends AppCompatActivity {
     public void naSkupine2(View view) {
         Intent intent = new Intent(ShoppingActivity.this, GroupsActivity.class);
         intent.putExtra("activity", "ToDoListActivity");
+        startActivity(intent);
+    }
+
+    public void naStroskovnik(View view) {
+        Intent intent = new Intent(ShoppingActivity.this, CostActivity.class);
+        intent.putExtra("ime", "" + costList);
         startActivity(intent);
     }
 }
