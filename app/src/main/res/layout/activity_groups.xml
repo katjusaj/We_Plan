@@ -8,13 +8,13 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="228dp"
-        android:layout_height="0dp"
+        android:layout_width="132dp"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Ime nove skupine"
+        android:hint="Ime skupine"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,14 +24,14 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="shraniSkupino"
         android:text="@string/dodaj"
         app:backgroundTint="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="shraniSkupino"  />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
         android:id="@+id/divider"
@@ -89,5 +89,20 @@
         android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mailNaslovi"
+        android:layout_width="143dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="@string/e_mail_naslovi"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.916" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

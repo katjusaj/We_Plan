@@ -129,44 +129,44 @@ public class GroupsActivity extends AppCompatActivity {
 
 
     private void setUpListViewListener() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
-                Context context = getApplicationContext();
-
-                String vs = preberiIzDatoteke(filename);
-                System.out.println("Pred izbrisom: "+ vs);
-                String izbris = ", "+ skupine.get(i);
-                System.out.println(izbris);
-
-                String novaVS = vs.replace(izbris, "");
-                System.out.println("Po izbrisu: "+ novaVS);
-
-//                 ZAPIS NOVEGA DOKUMENTA
-                try {
-                    //ustvarimo izhodni tok
-                    FileOutputStream os = openFileOutput(filename, MODE_PRIVATE);
-                    //zapisi vejico in presledek v datoteko
-//                    String vejica = ", ";
-//                    os.write(vejica.getBytes());
-                    //zapisemo posredovano vsebino v datoteko
-                    os.write(novaVS.getBytes());
-                    //sprostimo izhodni tok
-                    os.close();
-
-                    skupine.remove(i);
-                    groupsAdapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println(novaVS);
-
-                Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
+////                Context context = getApplicationContext();
+////
+////                String vs = preberiIzDatoteke(filename);
+////                System.out.println("Pred izbrisom: "+ vs);
+////                String izbris = ", "+ skupine.get(i);
+////                System.out.println(izbris);
+////
+////                String novaVS = vs.replace(izbris, "");
+////                System.out.println("Po izbrisu: "+ novaVS);
+////
+//////                 ZAPIS NOVEGA DOKUMENTA
+////                try {
+////                    //ustvarimo izhodni tok
+////                    FileOutputStream os = openFileOutput(filename, MODE_PRIVATE);
+////                    //zapisi vejico in presledek v datoteko
+//////                    String vejica = ", ";
+//////                    os.write(vejica.getBytes());
+////                    //zapisemo posredovano vsebino v datoteko
+////                    os.write(novaVS.getBytes());
+////                    //sprostimo izhodni tok
+////                    os.close();
+////
+////                    skupine.remove(i);
+////                    groupsAdapter.notifyDataSetChanged();
+////
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+////
+////                System.out.println(novaVS);
+////
+////                Toast.makeText(context, "Izbrisano", Toast.LENGTH_LONG).show();
+////                return true;
+//            }
+//        });
 
         // klik na ime skupine - vrže na skupino
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -206,12 +206,14 @@ public class GroupsActivity extends AppCompatActivity {
             groupsAdapter.add(itemText);
             input.setText("");
 //            inputOseba.setText("");
-            Intent intent = new Intent(GroupsActivity.this, ToDoListActivity.class);
-            intent.putExtra("ime", itemText);
-            startActivity(intent);
+//            Intent intent = new Intent(GroupsActivity.this, ToDoListActivity.class);
+//            intent.putExtra("ime", itemText);
+//            startActivity(intent);
 
             //klici shraniSkupino
             shraniSkupino(view, itemText);
+            finish();
+            startActivity(getIntent());
         }
         else {
             Toast.makeText(getApplicationContext(), "Vpišite ime skupine", Toast.LENGTH_LONG).show();

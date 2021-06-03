@@ -83,6 +83,7 @@ public class CostActivity extends AppCompatActivity {
 //                    String vejica = ", ";
 //                    os.write(vejica.getBytes());
                     //zapisemo posredovano vsebino v datoteko
+//                    String pobrisi = "";
                     os.write(novaVS.getBytes());
                     //sprostimo izhodni tok
                     os.close();
